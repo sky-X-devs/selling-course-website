@@ -3,7 +3,11 @@ const { string } = require('zod');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name:{
+    firtName:{
+        type: String,
+        required:true,
+    },
+    lastName:{
         type: String,
         required:true,
     },
@@ -18,6 +22,8 @@ const userSchema = new Schema({
     }
 },{
     timestamps:true})
+
+
 
     const user = mongoose.model("User",userSchema);
 

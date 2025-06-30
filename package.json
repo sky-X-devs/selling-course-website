@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dotenv": "^17.0.0",
     "e": "^0.2.33",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
