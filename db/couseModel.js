@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const OjbectId = mongoose.Types.ObjectId;
 const user = require('./userModel');
 
 const courseSchema = new Schema ( {
@@ -11,7 +12,7 @@ const courseSchema = new Schema ( {
         require:true,
         type:String,
     },
-    amount:{
+    price:{
         require:true,
         type:Number
     },
@@ -19,6 +20,9 @@ const courseSchema = new Schema ( {
         require:true,
         type:String
     },
-    courseCreater:user._id
-    
+    creatorId:OjbectId
 })
+const courseModel = mongoose.model("course",courseSchema);
+module.exports = { 
+    courseModel
+}

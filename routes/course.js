@@ -1,5 +1,5 @@
 const { Router } = require('express');
-
+const z = require('zod')
 const courseRouter = Router();
 
 courseRouter.post('/signup',function(req,res){
