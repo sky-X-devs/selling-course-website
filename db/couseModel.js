@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const OjbectId = mongoose.Types.ObjectId;
-const user = require('./userModel');
 
 const courseSchema = new Schema ( {
     title:{

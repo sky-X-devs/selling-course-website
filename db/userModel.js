@@ -3,7 +3,7 @@ const { string } = require('zod');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    firtName:{
+    firstName:{
         type: String,
         required:true,
     },
@@ -26,6 +26,6 @@ const userSchema = new Schema({
 
 
 
-    const user = mongoose.model("User",userSchema);
+    const User = mongoose.model("User",userSchema);
 
     module.exports = User;

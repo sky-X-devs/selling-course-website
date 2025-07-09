@@ -5,9 +5,9 @@ const courseRouter = Router();
 courseRouter.post('/signup',function(req,res){
         const { username , email , password } = req.body ;
         const user = z.object({
-            username:z.string(),
-            email:z.string().email(),
-            password:z.string().min(5,"password should atleast of 8 character").max(16)
+            username: z.string(),
+            email : z.string().email(),
+            password : z.string().min(5,"password should atleast of 8 character").max(16)
         })
 
         const result = user.safeParse({username,email,password});
@@ -20,6 +20,14 @@ courseRouter.post('/signup',function(req,res){
         return res.json({
             Message:"Invalid details "
         })
+    })
+
+    courseRouter.post('/purchase',()=>{
+
+    })
+
+    courseRouter.get('/preview',()=>{
+
 
     })
 
