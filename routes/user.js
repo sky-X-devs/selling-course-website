@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const User = require('../db/userModel');
 const bcrypt = require("bcrypt");
+const userMiddleware = require('../middleware/userMiddleware');
 const saltRounds = 10;
 
 
@@ -48,7 +49,7 @@ const userRouter = Router(); //function not a class
         }
     });
 
-    userRouter.post('/signin',async function(req,res){
+    userRouter.post('/signin', async function(req,res){
         const { email , password } = req.body;
 
         const userFound = await User.findOne({email});
