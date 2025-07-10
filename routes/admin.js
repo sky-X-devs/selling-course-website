@@ -6,7 +6,7 @@ const { adminModel } = require("../db/adminModel");
 const { configDotenv } = require("dotenv");
 require("dotenv").config();
 
-const adminRouter = Router;
+const adminRouter = Router();
 
 adminRouter.post('/signup',function (req,res){
     const { firstName , lastName , email , password } = req.body;
