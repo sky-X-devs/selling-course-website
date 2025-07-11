@@ -3,10 +3,13 @@ const Router = express.Router;
 const jwt = require('jsonwebtoken');
 const z = require('zod');
 const { adminModel } = require("../db/adminModel");
+const { courseModel } = require("../db/courseModel");
 require("dotenv").config();
-const bcrytp = require("bcrypt");
+const bcrypt = require("bcrypt");
 const saltRound = 10;
 const adminRouter = Router();
+const adminMiddleware = require("../middleware/adminMiddleware");
+
 
 adminRouter.post('/signup',async function (req,res){
     const { firstName , lastName , email , password } = req.body;
@@ -21,7 +24,7 @@ adminRouter.post('/signup',async function (req,res){
 
     if(zodCheck.success){
 
-        const hashPassword = await bcrytp.hash(password,saltRound);
+        const hashPassword = await bcrypt.hash(password,saltRound);
         await adminModel.create({
             firstName,
             lastName,
@@ -55,7 +58,7 @@ adminRouter.post("/signin",async function (req,res) {
     
 })
 
-adminRouter.post("/course", function (req, res){
+adminRouter.post("/course",adminMiddleware, async function (req, res){
     const adminId = req.userId;
     
     const {title, description, price, imageUrl } = req.body; 
@@ -67,38 +70,43 @@ adminRouter.post("/course", function (req, res){
         creatorId:adminId
     });
 
+    console.log("course is created with this specification => "+cousre);
 
     res.json({
-        Message : "couse created ",
-        courseId:course._id
+    message : "course created",
+    courseId : cousre._id
+});
+
+})
+
+// adminRouter.put("/course",async function (req, res) {
+//     const { newtitle, newdescription , newprice , newimageUrl,courseId } = req.body;
+//      const cousre = courseModel.findOne({
+//         coureId
+//      })
+
+//      await courseModel.updateOne({
+//         _id:coureId,
+//         creatorId : adminId
+//        {
+//         ,{
+//             title : newtitle , 
+//             description : newdescription , 
+//             price : newprice ,
+//             imageUrl : newimageUrl
+//         }
+//        }
+//      })
+
+
+// })
+
+adminRouter.get("/course/bulk",async function ( req, res ){
+
+    const course = await courseModel.find();
+    res.json({
+        course
     })
-})
-
-adminRouter.put("/course",async function (req, res) {
-    const { newtitle, newdescription , newprice , newimageUrl,courseId } = req.body;
-     const cousre = courseModel.findOne({
-        coureId
-     })
-
-     await courseModel.updateOne({
-        _id:coureId,
-        creatorId : adminId
-       {
-        ,{
-            title : newtitle , 
-            description : newdescription , 
-            price : newprice ,
-            imageUrl : newimageUrl
-        }
-       }
-     })
-
-
-})
-
-adminRouter.get("/course/bulk", function (){
-
-
 })
 
 module.exports = { 
