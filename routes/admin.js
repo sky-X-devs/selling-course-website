@@ -50,7 +50,7 @@ adminRouter.post("/signin",async function (req,res) {
         })
     }
 
-    const token = jwt.sign({email},process.env.JWT_ADMIN_SECRET);
+    const token = jwt.sign({id: admin._id},process.env.JWT_ADMIN_SECRET);
     res.json({
         message:"admin login successfully ",
         token
@@ -59,14 +59,15 @@ adminRouter.post("/signin",async function (req,res) {
 })
 
 adminRouter.post("/course",adminMiddleware, async function (req, res){
-    const adminId = req.userId;
+    const adminId = req.adminId;
     
     const {title, description, price, imageUrl } = req.body; 
+    console.log("adding course post request");
     const cousre = await courseModel.create({
-        title,
-        description,
-        price,
-        imageUrl,
+            title,
+            description,
+            price,
+            imageUrl,
         creatorId:adminId
     });
 
@@ -80,12 +81,15 @@ adminRouter.post("/course",adminMiddleware, async function (req, res){
 })
 
 adminRouter.put("/course",adminMiddleware, async function (req, res) {
-    const { newtitle, newdescription , newprice , newimageUrl,courseId } = req.body;
+    const { newtitle, newdescription , newprice , newimageUrl } = req.body;
     //  const cousre = courseModel.findOne({
     //     coureId
     //  })
-    const res = await courseModel.updateOne({
-        courseid : adminId
+    const adminId = req.adminId;
+    console.log("adminIdz=> "+ adminId);
+
+    const result = await courseModel.updateOne({
+        creatorId : adminId
     },{
      title : newtitle , 
             description : newdescription , 
@@ -93,8 +97,11 @@ adminRouter.put("/course",adminMiddleware, async function (req, res) {
             imageUrl : newimageUrl
         }
     )
+    console.log("after updateOne running ");    
+    console.log(result);
     res.json({
-        Message : "course updated "
+        Message : "course updated ",
+        result
     })     
     
 })
