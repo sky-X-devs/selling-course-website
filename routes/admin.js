@@ -11,102 +11,102 @@ const adminRouter = Router();
 const adminMiddleware = require("../middleware/adminMiddleware");
 
 
-adminRouter.post('/signup',async function (req,res){
-    const { firstName , lastName , email , password } = req.body;
+adminRouter.post('/signup', async function (req, res) {
+    const { firstName, lastName, email, password } = req.body;
     const admin = z.object({
-        firstName : z.string(),
-        lastName : z.string(),
-        email : z.string().email(),
-        password : z.string().min(4).max(16)
+        firstName: z.string(),
+        lastName: z.string(),
+        email: z.string().email(),
+        password: z.string().min(4).max(16)
     })
 
-    const zodCheck = admin.safeParse({firstName,lastName,email,password});
+    const zodCheck = admin.safeParse({ firstName, lastName, email, password });
 
-    if(zodCheck.success){
+    if (zodCheck.success) {
 
-        const hashPassword = await bcrypt.hash(password,saltRound);
+        const hashPassword = await bcrypt.hash(password, saltRound);
         await adminModel.create({
             firstName,
             lastName,
             email,
-            password : hashPassword
+            password: hashPassword
         });
 
         return res.json({
-           message : " signup successfully completed "
+            message: " signup successfully completed "
         })
     }
     return res.json({
-        message : "invalid credential"
+        message: "invalid credential"
     })
 })
 
-adminRouter.post("/signin",async function (req,res) {
-    const { email , password } = req.body; 
-    const admin = await adminModel.findOne({email}) ;
-    if(!admin){
+adminRouter.post("/signin", async function (req, res) {
+    const { email, password } = req.body;
+    const admin = await adminModel.findOne({ email });
+    if (!admin) {
         return res.json({
-            message : "Invalid credentials "
+            message: "Invalid credentials "
         })
     }
 
-    const token = jwt.sign({id: admin._id},process.env.JWT_ADMIN_SECRET);
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_ADMIN_SECRET);
     res.json({
-        message:"admin login successfully ",
+        message: "admin login successfully ",
         token
     })
-    
+
 })
 
-adminRouter.post("/course",adminMiddleware, async function (req, res){
+adminRouter.post("/course", adminMiddleware, async function (req, res) {
     const adminId = req.adminId;
-    
-    const {title, description, price, imageUrl } = req.body; 
+
+    const { title, description, price, imageUrl } = req.body;
     console.log("adding course post request");
     const cousre = await courseModel.create({
-            title,
-            description,
-            price,
-            imageUrl,
-        creatorId:adminId
+        title,
+        description,
+        price,
+        imageUrl,
+        creatorId: adminId
     });
 
-    console.log("course is created with this specification => "+cousre);
+    console.log("course is created with this specification => " + cousre);
 
     res.json({
-    message : "course created",
-    courseId : cousre._id
-});
+        message: "course created",
+        courseId: cousre._id
+    });
 
 })
 
-adminRouter.put("/course",adminMiddleware, async function (req, res) {
-    const { newtitle, newdescription , newprice , newimageUrl } = req.body;
+adminRouter.put("/course", adminMiddleware, async function (req, res) {
+    const { newtitle, newdescription, newprice, newimageUrl } = req.body;
     //  const cousre = courseModel.findOne({
     //     coureId
     //  })
     const adminId = req.adminId;
-    console.log("adminIdz=> "+ adminId);
+    console.log("adminIdz=> " + adminId);
 
     const result = await courseModel.updateOne({
-        creatorId : adminId
-    },{
-     title : newtitle , 
-            description : newdescription , 
-            price : newprice ,
-            imageUrl : newimageUrl
-        }
+        creatorId: adminId
+    }, {
+        title: newtitle,
+        description: newdescription,
+        price: newprice,
+        imageUrl: newimageUrl
+    }
     )
-    console.log("after updateOne running ");    
+    console.log("after updateOne running ");
     console.log(result);
     res.json({
-        Message : "course updated ",
+        Message: "course updated ",
         result
-    })     
-    
+    })
+
 })
 
-adminRouter.get("/course/bulk",async function ( req, res ){
+adminRouter.get("/course/bulk", async function (req, res) {
 
     const course = await courseModel.find();
     res.json({
@@ -114,6 +114,6 @@ adminRouter.get("/course/bulk",async function ( req, res ){
     })
 })
 
-module.exports = { 
-    adminRouter:adminRouter
+module.exports = {
+    adminRouter: adminRouter
 }
