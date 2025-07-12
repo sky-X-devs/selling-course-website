@@ -83,28 +83,33 @@ userRouter.post('/signin', async function (req, res) {
         })
     }
 })
-userRouter.get('/purchases', userMiddleware, async () => {
-    const {userId} = req.userId;
-    const purchaseCo = await purchaseModel.findOne({
-        userId
-    })
-    if(!purchaseCo){
-        return res.json({
-            message: "cousre cannot fetched"
+userRouter.get('/purchases', userMiddleware, async (req, res ) => {
+    const userId = req.userId;
+    try { 
+        const purchaseCo = await purchaseModel.find({
+            userId
         })
-    }
-    const purchased = await courseModel.findOne({
-        courseId:purchaseCo.courseId 
-    })
-    if(!purchased){
-        return res.json({
-            message : "course cannot find "
+        if(purchaseCo.length === 0){
+            return res.status(404).json({
+                message: "no purchases found"
+            })
+        }
+        const courseIds = purchaseCo.map(p => p.courseIds)
+        const purchased = await courseModel.find({
+            _id : { $in: courseIds }
         })
+        
+        return res.status(200).json({
+            Message : "course fetched successfully",
+            purchased
+        })
+    }catch(error){
+         console.error(error);
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+
     }
-    return res.status(200).json({
-        Message : "course fetched successfully",
-        purchased
-    })
 })
 
 module.exports = {

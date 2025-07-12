@@ -55,9 +55,6 @@ courseRouter.get('/preview', userMiddleware, async () => {
     
 })
 
-
-
-
 module.exports = {
     courseRouter: courseRouter
 }
