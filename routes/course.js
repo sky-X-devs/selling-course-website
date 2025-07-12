@@ -31,7 +31,6 @@ courseRouter.post('/purchase/:courseId',userMiddleware, async (req, res) => {
 courseRouter.get('/preview/:courseId', userMiddleware, async () => {
     const { courseId } = req.params;
     
-
 })
 
 
