@@ -3,29 +3,30 @@ const { string } = require('zod');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    firstName:{
+    firstName: {
         type: String,
-        required:true,
+        required: true,
     },
-    lastName:{
+    lastName: {
         type: String,
-        required:true,
+        required: true,
     },
-    email:{
-        type:String,
-        requierd:true,
-        unique:true
+    email: {
+        type: String,
+        requierd: true,
+        unique: true
     },
-    password:{
-        type:String,
-        requied:true,
+    password: {
+        type: String,
+        requied: true,
         min: 6,
     }
-},{
-    timestamps:true})
+}, {
+    timestamps: true
+})
 
 
 
-    const User = mongoose.model("User",userSchema);
+const User = mongoose.model("User", userSchema);
 
-    module.exports = User;
+module.exports = User;
