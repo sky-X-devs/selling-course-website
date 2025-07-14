@@ -57,21 +57,29 @@ adminRouter.post("/signin", async function (req, res) {
     })
 
 })
-
+//random channges 
 adminRouter.post("/course", adminMiddleware, async function (req, res) {
     const adminId = req.adminId;
 
     const { title, description, price, imageUrl } = req.body;
-    console.log("adding course post request");
-    const cousre = await courseModel.create({
+    try {
+         const cousre = await courseModel.create({
         title,
         description,
         price,
         imageUrl,
         creatorId: adminId
     });
+        if ( !cousre ){
+            return res.json({
+                Error : "Course not created "
+            })
+        }
+    } catch (error) {
+        console.log(error )
+    }
+   
 
-    console.log("course is created with this specification => " + cousre);
 
     res.json({
         message: "course created",
@@ -107,6 +115,7 @@ adminRouter.put("/course", adminMiddleware, async function (req, res) {
 })
 
 adminRouter.get("/course/bulk", async function (req, res) {
+
 
     const course = await courseModel.find();
     res.json({
