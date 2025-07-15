@@ -97,9 +97,7 @@ adminRouter.put("/course", adminMiddleware, async function (req, res) {
             Error : newDetail.error.errors
         })
     ] 
-    //  const cousre = courseModel.findOne({
-    //     coureId
-    //  })
+    
     const adminId = req.adminId;
     console.log("adminIdz=> " + adminId);
 
