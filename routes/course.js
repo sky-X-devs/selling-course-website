@@ -12,7 +12,7 @@ const purchaseZod = z.object({
 courseRouter.post('/purchase/:courseId',userMiddleware, async (req, res) => {
     const { courseId } = req.params; 
     const userId  = req.id; 
-    const { creatorId } = req.body;
+    // const { creatorId } = req.body;
     
     const result = purchaseZod.safeParse(req.body);
     if(!result.success) {

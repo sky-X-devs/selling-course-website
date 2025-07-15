@@ -10,6 +10,12 @@ const saltRound = 10;
 const adminRouter = Router();
 const adminMiddleware = require("../middleware/adminMiddleware");
 
+const courseZod = z.object({
+    title:z.string,
+    description : z.string,
+    price : z.number,
+    imageUrl : z.string,
+})
 
 adminRouter.post('/signup', async function (req, res) {
     const { firstName, lastName, email, password } = req.body;
@@ -61,35 +67,36 @@ adminRouter.post("/signin", async function (req, res) {
 adminRouter.post("/course", adminMiddleware, async function (req, res) {
     const adminId = req.adminId;
 
-    const { title, description, price, imageUrl } = req.body;
-    try {
-         const cousre = await courseModel.create({
+    const result = courseZod.safeParse(req.body);
+
+    if (!result.success) {
+        return res.status(404).json({
+            Error: result.error.errors
+        })
+    }
+    const cousre = await courseModel.create({
         title,
         description,
         price,
         imageUrl,
         creatorId: adminId
     });
-        if ( !cousre ){
-            return res.json({
-                Error : "Course not created "
-            })
-        }
-    } catch (error) {
-        console.log(error )
-    }
-   
-
 
     res.json({
         message: "course created",
         courseId: cousre._id
     });
-
 })
 
 adminRouter.put("/course", adminMiddleware, async function (req, res) {
     const { newtitle, newdescription, newprice, newimageUrl } = req.body;
+    const newDetail = courseZod.safeParse({newtitle, newdescription , newprice , newimageUrl });
+     
+    if ( !newDetail.success )[
+        res.status(400).json({
+            Error : newDetail.error.errors
+        })
+    ] 
     //  const cousre = courseModel.findOne({
     //     coureId
     //  })
@@ -115,7 +122,6 @@ adminRouter.put("/course", adminMiddleware, async function (req, res) {
 })
 
 adminRouter.get("/course/bulk", async function (req, res) {
-
 
     const course = await courseModel.find();
     res.json({
