@@ -6,7 +6,7 @@ const { courseModel } = require('../db/courseModel');
 const courseRouter = Router();
 
 const purchaseZod = z.object({
-    creatorId : z.strict(),
+    creatorId : z.string(),
 });
 
 courseRouter.post('/purchase/:courseId',userMiddleware, async (req, res) => {
