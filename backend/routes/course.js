@@ -50,9 +50,17 @@ courseRouter.post('/purchase/:courseId',userMiddleware, async (req, res) => {
 
 })
 
-courseRouter.get('/preview', userMiddleware, async () => {
-    const { courseId } = req.params;
+courseRouter.get('/preview',  async (req,res) => {
+    const co = await courseModel.find();
+    if (!co) {
+        return res.status(404).json({ error: "No courses found" });
+    }
+    console.log("Fetching courses...");
 
+    console.log(co);
+    res.json({
+        co
+    })
 })
 
 module.exports = {
