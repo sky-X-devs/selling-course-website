@@ -49,4 +49,12 @@ body {
     display: block;
     margin: 0 16rem;
     font-weight: bold;
+    cursor: pointer;
 }
+.login-form a { 
+    text-decoration: none;
+   }
+   
+   .login-form a :hover{ 
+    color: #218838;
+   }

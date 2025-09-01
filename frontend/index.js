@@ -3,10 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginButton) {
         loginButton.addEventListener('click', (event)=>{
             event.preventDefault(); // Prevent default anchor behavior
-            window.location.href = '/project/week-8 Course Selling WebApp/frontend/page/login.html'; // Redirect to login page
+            window.location.href = 'http://127.0.0.1:5500/frontend/page/login.html'; // Redirect to login page
             console.log("Login button clicked, redirecting to login page.");
         });
     }
+
+    const signupButton = document.querySelector('.signup-button');
+    if (signupButton) {
+        signupButton.addEventListener('click',(event)=>{
+            event.preventDefault();
+            window.location.href = 'http://127.0.0.1:5500/frontend/page/signup.html';
+        });
+      }
 });
 
 function fetchData() {

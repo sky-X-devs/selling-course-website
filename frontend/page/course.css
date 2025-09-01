@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+width: 100%;
+  background-color: #555;
+  color: #f9f9f9;
+}
+
+/* Navbar */
+.navbar {
+height: 50px;
+align-items: center;
+  background-color: #333;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-container {
+  width: 100%;
+  padding:0.3rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links { 
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #f9f9f9;
+    padding: 1px 15px;
+    border: #fff solid 1px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: #fff 0px 0px 2px;
+}
+.nav-links a:hover {
+    color:#333;
+    background-color: #fff;
+}
+
+
+.profile {
+    display :relative;
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    cursor:pointer;
+    border-radius: 50%;
+}
+
+.hero {
+    height: 100%;
+    background-color: #738a92;
+    margin: 30px 80px;
+    align-items: center;
+    padding: 10px 20px; 
+}
+
+.hero-title {
+    color: #fff;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+.hero-image { 
+    background-color: rgba(0, 255, 255, 0.404);
+    height:60vh;
+    width : 86vw;
+}
+.instructor {
+   
+   
+    background: #000;
+    height:8vh;
+    width:10vw;
+    border-radius: 4px;
+    padding: 5px 20px;
+    align-items: center;
+}
