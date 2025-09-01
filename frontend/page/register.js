@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded",()=>{
     const url = "http://localhost:3000/user/signup";
+
     const registerButton = document.querySelector('.register-form button[type="submit"]');
     if( registerButton ) {
         console.log("register button found:", registerButton);
@@ -18,16 +19,22 @@ document.addEventListener("DOMContentLoaded",()=>{
             console.log("Register button clicked, username: ", username, " email: ", email, " password: ", password);
             fetch(url,{
                 method:"post",
-                body:JSON.stringify({username,email,password}),
-                headrrs:{
+                body:JSON.stringify({firstName:username,
+                    lastName:"Verma",
+                    email:email,
+                    password:password}),
+                headers:{
                     'Content-Type':'application/json'
                 }   
             })
+            .then(Response=>Response.json())
+            .then(data=>{console.log("Response from server:",data);})
+            .catch(err=>{console.error("errror form server ",err)})
+            alert("Registration successful! Please log in.");               
         })
         usernameInput.value= "";
         emailInput.value = "";
         passwordInput.value = "";
     }
-
 
 })

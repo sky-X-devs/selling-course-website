@@ -15,7 +15,12 @@ const userRouter = Router(); //function not a class
 
 userRouter.post('/signup', async function (req, res) {
     const { firstName, lastName, email, password } = req.body;
-
+    console.log("Request body ", req.body);
+    if (!firstName || !lastName || !email || !password) {
+        return res.status(400).json({
+            Message: "All fields are required"
+        })
+    }
     const user = z.object({
         firstName: z.string(),
         lastName: z.string(),
