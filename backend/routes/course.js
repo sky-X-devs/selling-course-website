@@ -61,7 +61,7 @@ courseRouter.get('/preview',  async (req,res) => {
     res.json({
         co
     })
-})
+})  
 
 module.exports = {
     courseRouter: courseRouter

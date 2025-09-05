@@ -47,6 +47,25 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault(); 
             console.log("Register button clicked");
             window.location.href = "http://127.0.0.1:5500/frontend/page/register.html";
+            getCourses();
         });
     }
+    
 });
+
+const getCourses = ()=>{
+    const url = "http://localhost:3000/";
+    console.log("Fetching courses...");
+    userData = {};
+    fetch(url+"course/preview",{
+        method:"GET",
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(Response=>Response.json())
+    .then(data=>{
+        console.log("Response from server:",data)
+    })
+    .catch(err=>{console.log("Error from the server:",err)})
+}

@@ -8,6 +8,11 @@
 body{
     background-color: #f9f9f9;
 }
+.logo {
+  font-size: 1.8rem;
+  color: #007BFF;
+  text-align: center;
+}
 
 .navbar{
     background-color: #333;
@@ -24,11 +29,6 @@ body{
     display: flex;
     justify-content:space-between;
     align-items: center;
-}
-.logo{
-    font-size: xx-large;
-    color: #fff;
-    text-align: center;
 }
 
 .profile{
@@ -59,4 +59,21 @@ body{
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     overflow: hidden;
     margin-bottom: 2rem;
+}
+#course-list{
+    background-color: #f9f9f9;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+.course-card {
+    height: 20rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
