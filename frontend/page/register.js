@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             fetch(url,{
                 method:"post",
                 body:JSON.stringify({firstName:username,
-                    lastName:"Verma",
+                    lastName:"",
                     email:email,
                     password:password}),
                 headers:{
@@ -28,13 +28,12 @@ document.addEventListener("DOMContentLoaded",()=>{
                 }   
             })
             .then(Response=>Response.json())
-            .then(data=>{console.log("Response from server:",data);})
+            .then(data=>{console.log("Response from server:",data)})
             .catch(err=>{console.error("errror form server ",err)})
-            alert("Registration successful! Please log in.");               
         })
         usernameInput.value= "";
         emailInput.value = "";
         passwordInput.value = "";
+        window.location.href="http://127.0.0.1:5500/frontend";
     }
-
 })

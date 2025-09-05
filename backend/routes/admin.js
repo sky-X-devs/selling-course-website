@@ -11,11 +11,11 @@ const adminRouter = Router();
 const adminMiddleware = require("../middleware/adminMiddleware");
 
 const courseZod = z.object({
-    title:z.string,
-    description : z.string,
-    price : z.number,
-    imageUrl : z.string,
-})
+    title: z.string(),
+    description: z.string(),
+    price: z.number(),
+    imageUrl: z.string()
+});
 
 adminRouter.post('/signup', async function (req, res) {
     const { firstName, lastName, email, password } = req.body;
@@ -66,15 +66,21 @@ adminRouter.post("/signin", async function (req, res) {
 //random channges 
 adminRouter.post("/course", adminMiddleware, async function (req, res) {
     const adminId = req.adminId;
+    console.log("adminId=> " + adminId);
 
     const result = courseZod.safeParse(req.body);
 
+    console.log("result is ", result);
+
     if (!result.success) {
-        return res.status(404).json({
-            Error: result.error.errors
-        })
+        return res.status(400).json({
+            error: result.error.errors
+        });
     }
-    const cousre = await courseModel.create({
+
+    const { title, description, price, imageUrl } = result.data;
+
+    const course = await courseModel.create({
         title,
         description,
         price,
@@ -83,20 +89,21 @@ adminRouter.post("/course", adminMiddleware, async function (req, res) {
     });
 
     res.json({
-        message: "course created",
-        courseId: cousre._id
+        message: "Course created",
+        courseId: course._id
     });
-})
+});
+
 
 adminRouter.put("/course", adminMiddleware, async function (req, res) {
     const { newtitle, newdescription, newprice, newimageUrl } = req.body;
     const newDetail = courseZod.safeParse({newtitle, newdescription , newprice , newimageUrl });
      
-    if ( !newDetail.success )[
+    if ( !newDetail.success ){
         res.status(400).json({
             Error : newDetail.error.errors
         })
-    ] 
+    }
     
     const adminId = req.adminId;
     console.log("adminIdz=> " + adminId);

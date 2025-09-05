@@ -10,7 +10,6 @@ const { purchaseModel } = require('../db/purchaseModel');
 const { courseModel } = require('../db/courseModel');
 const saltRounds = 10;
 
-
 const userRouter = Router(); //function not a class 
 
 userRouter.post('/signup', async function (req, res) {
@@ -49,6 +48,11 @@ userRouter.post('/signup', async function (req, res) {
             Message: "signup is successfully done "
         });
     } catch (err) {
+        if (err.code === 11000) {
+            return res.status(409).json({
+                Error: "User already exists"
+            })
+        }
         console.error("Error in signup ", err);
         return res.status(500).json({
             Message: "Internal server error"
@@ -74,11 +78,11 @@ userRouter.post('/signin', async function (req, res) {
             })
         }
         const token = jwt.sign({
-            id: User._id
+            id: User._id    
         }, process.env.JWT_USER_SECRET);
 
         res.status(200).json({
-            Message: "Valid Credentials ",
+            Message: "login successful",
             token
         })
     } catch (err) {

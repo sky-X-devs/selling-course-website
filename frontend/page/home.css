@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #f9f9f9;
+}
+
+.navbar{
+    background-color: #333;
+    width: 100%;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #f9f9f9;
+    align-content: center;
+}
+
+.navbar-container{
+    width: 100%;
+    padding:0.3rem 8rem;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.logo{
+    font-size: xx-large;
+    color: #fff;
+    text-align: center;
+}
+
+.profile{
+    display :relative;
+    background-color: #ff0000;
+    width: 45px;
+    height: 45px;
+    cursor:pointer;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.8rem;
+    text-align: center;
+}
+
+.profile label {
+    visibility: hidden;
+}
+
+.home-container{
+    max-width: 1200px;
+    margin: 2rem 8rem;
+}      
+
+.course-card{
+    padding: 0.5rem;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
