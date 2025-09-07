@@ -32,13 +32,17 @@ body{
 }
 
 .profile{
-    display :relative;
+    position: relative;
     background-color: #ff0000;
     width: 45px;
     height: 45px;
     cursor:pointer;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;;
     padding: 0.8rem;
     text-align: center;
 }
@@ -76,4 +80,47 @@ body{
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
+}
+.name{
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+.nav-links {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+.profile-menu {
+    position: absolute;
+    top: 60px;
+    background: #fff;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 150px;
+    display: none; /* hidden by default */
+    flex-direction: column;
+    padding: 0.5rem 0;
+    z-index: 100;
+}
+
+.profile-menu a {
+    padding: 0.6rem 1rem;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+}
+.profile-menu a:hover{
+    background-color: #f1f1f1;
+}
+.profile.active + .profile-menu {
+    display: flex; 
+
 }

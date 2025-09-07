@@ -8,6 +8,23 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     getCourses();
+    const profile = document.getElementById("profile");
+    const profileMenu = document.getElementById("profileMenu");
+
+    profile.addEventListener("click",()=>{
+        console.log("Profile clicked");
+        profile.classList.toggle("active");
+    })
+    profile.addEventListener("click",(event)=>{
+        if(!profile.contains(event.target) && !profileMenu.contains(event.target)){
+            profileMenu.classList.remove("active");
+        }
+    });
+    const logoutButton = document.getElementById("log-out");
+    logoutButton.addEventListener("click",()=>{
+        event.preventDefault();
+        logout();
+    });
 });
 
 const getCourses = () => {
@@ -41,5 +58,12 @@ const getCourses = () => {
             
         });
     })
-    .catch(err => console.log("Error from the server:", err));
+    .catch(err => console.log("Error from the server:", err)); 
 };
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "http://localhost:5500/frontend/page/login.html";
+}
+
+ 
