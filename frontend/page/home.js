@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "http://localhost:5500/frontend/page/login.html";
         return;
     }
+    getUserDetails();
     getCourses();
     const profile = document.getElementById("profile");
     const profileMenu = document.getElementById("profileMenu");
@@ -66,4 +67,25 @@ function logout() {
     window.location.href = "http://localhost:5500/frontend/page/login.html";
 }
 
- 
+const getUserDetails = ()=>{
+    const token = localStorage.getItem("token");
+    if(!token){
+        alert("You must login first");
+        window.location.href = "http://localhost:5500/frontend/page/login.html";
+        return;
+    }
+    fetch("http://localhost:3000/user/me",{
+        method :"GET",
+        headers :{
+            contentType : "application/json",
+        }
+    }).then(res => {
+            return res.json();
+        })
+        .then(data =>{
+            const username = data.username;
+            document.getElementById("username").innerText = username;
+            document.getElementById("name").innerText = username.charAt(0).toUpperCase();
+            console.log("User data:",data);
+        })
+    }

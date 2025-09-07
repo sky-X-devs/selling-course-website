@@ -65,33 +65,34 @@ userRouter.post('/signin', async function (req, res) {
 
     const userFound = await User.findOne({ email });
     if (!userFound) {
-        return res.status(401).json({
-            Message: "Invalid credential"
-        })
+        return res.status(401).json({ Message: "Invalid credential" });
     }
+
     try {
         const result = await bcrypt.compare(password, userFound.password);
-        console.log("result is ", result);
+        console.log("Password match result:", result);
+
         if (!result) {
-            return res.json({
-                Message: "User not found "
-            })
+            return res.status(401).json({ Message: "Invalid credential" });
         }
-        const token = jwt.sign({
-            id: User._id    
-        }, process.env.JWT_USER_SECRET);
+
+        
+        const token = jwt.sign(
+            { userId: userFound._id },
+            process.env.JWT_USER_SECRET,
+            { expiresIn: "1h" }
+        );
 
         res.status(200).json({
-            Message: "login successful",
+            Message: "Login successful",
             token
-        })
+        });
     } catch (err) {
-        console.error("Error in signin ", err)
-        return res.status(500).json({
-            Message: "Internal Server Error "
-        })
+        console.error("Error in signin ", err);
+        return res.status(500).json({ Message: "Internal Server Error" });
     }
-})
+});
+
 userRouter.get('/purchases', userMiddleware, async (req, res ) => {
     const userId = req.userId;
     try { 
@@ -120,6 +121,28 @@ userRouter.get('/purchases', userMiddleware, async (req, res ) => {
 
     }
 })
+
+    userRouter.get('/me', userMiddleware,async (req,res) =>{
+        const userId = req.userId;
+        console.log("userId in /me ", userId);
+        try{
+            const user = await User.findOne({ _id: userId }).select("-password -_id -__v -email");
+            console.log("User found in /me ", user);
+            if(!user){
+                return res.status(404).json({
+                    error : "user not found"
+                })
+            }     
+            return res.status(200).json(user);
+        }
+        catch(error){
+            console.error("Error in /me ", error);
+            return res.status(500).json({
+                error : "Internal server error"
+            })
+        }
+    })
+        
 
 module.exports = {
     userRouter: userRouter

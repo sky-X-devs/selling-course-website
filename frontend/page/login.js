@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault(); 
             console.log("Register button clicked");
             window.location.href = "http://127.0.0.1:5500/frontend/page/register.html";
-            getCourses();
+            
         });
     }
     
