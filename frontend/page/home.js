@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        alert("You must login first!");
+        alert("You must login first! this page is protected and this comes from home.js file");
         window.location.href = "http://localhost:5500/frontend/page/login.html";
         return;
     }
@@ -21,6 +21,19 @@ document.addEventListener("DOMContentLoaded", () => {
             profileMenu.classList.remove("active");
         }
     });
+    const courseListContainer = document.getElementById("course-list");
+    courseListContainer.addEventListener("click", (event) => {
+        if (event.target.classList.contains("enroll-button")) {
+            event.preventDefault();
+            const courseCard = event.target.closest(".course-card");
+            if (courseCard) {
+                const courseId = courseCard.getAttribute("data-id");
+                console.log("Enroll button clicked for course ID:", courseId);
+                enroll(courseId);
+            }
+        }
+    });
+
     const logoutButton = document.getElementById("log-out");
     logoutButton.addEventListener("click",()=>{
         event.preventDefault();
@@ -38,6 +51,10 @@ const getCourses = () => {
     })
     .then(res => res.json())
     .then(data => {
+            if(!data){
+                alert("Unable to fetch courses at the moment. Please try again later.");
+                return;
+            }
         const courseList = data.co;
         console.log("Response from server:", courseList);
         
@@ -48,6 +65,7 @@ const getCourses = () => {
         courseList.forEach(course => {
             const courseCard = document.createElement("div");
             courseCard.className = "course-card";
+            courseCard.setAttribute('data-id', course._id);
 
             courseCard.innerHTML = `
                 <h3>${course.title}</h3>
@@ -78,14 +96,38 @@ const getUserDetails = ()=>{
         method :"GET",
         headers :{
             contentType : "application/json",
+            token : token
         }
     }).then(res => {
             return res.json();
         })
         .then(data =>{
-            const username = data.username;
-            document.getElementById("username").innerText = username;
-            document.getElementById("name").innerText = username.charAt(0).toUpperCase();
+            const username = data.firstName;
+            console.log("Username:", username);
+            document.getElementById("profile").innerText = username.charAt(0).toUpperCase();
+            document.getElementsByClassName('name')[0].innerText = username;
             console.log("User data:",data);
         })
+    }
+    function enroll(courseId){
+        const token = localStorage.getItem("token");
+        if(!token){
+            alert('you must login first');
+            window.location.href = 'http://localhost:5500/frontend/page/login';
+            return;
+        }
+        fetch('http://localhost:3000/user/purchase/:'+courseId,{
+            method : "POST",
+            headers :{
+                token : token,
+                contentType:"application/json"
+            }
+        }).then(res => res.json())
+        .then(data =>{
+            console.log("Enrollment response:",data);
+            if(data.Message.trim() === "Course purchased successfully"){
+                alert("Course enrolled successfully");
+            }   
+        })
+        .catch(err => console.log("Error during enrollment:",err));
     }

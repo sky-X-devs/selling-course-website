@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const url = "http://localhost:3000/user/signin";
-    userData = {};
+    // userData = {};
 
     const loginButton = document.querySelector('.login-form button[type="submit"]');
     if (loginButton) {
@@ -24,8 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
             .then(Response=>Response.json())
-            .then(data=>{console.log("Response from server:",data)
-                if(data.Message.trim() === "login successful"){
+            .then(data=>{
+                console.log("Response from server:",data)
+                if(data.Message.trim() === "Login successful"){     
                     localStorage.setItem("token",data.token);
                     window.location.href = "http://localhost:5500/frontend/page/home.html";
                 }
@@ -53,19 +54,19 @@ document.addEventListener("DOMContentLoaded", () => {
     
 });
 
-const getCourses = ()=>{
-    const url = "http://localhost:3000/";
-    console.log("Fetching courses...");
-    userData = {};
-    fetch(url+"course/preview",{
-        method:"GET",
-        headers:{
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(Response=>Response.json())
-    .then(data=>{
-        console.log("Response from server:",data)
-    })
-    .catch(err=>{console.log("Error from the server:",err)})
-}
+// const getCourses = ()=>{
+//     const url = "http://localhost:3000/";
+//     console.log("Fetching courses...");
+//     userData = {};
+//     fetch(url+"course/preview",{
+//         method:"GET",
+//         headers:{
+//             'Content-Type': 'application/json'
+//         }   
+//     })
+//     .then(Response=>Response.json())
+//     .then(data=>{
+//         console.log("Response from server:",data)
+//     })
+//     .catch(err=>{console.log("Error from the server:",err)})
+// //}

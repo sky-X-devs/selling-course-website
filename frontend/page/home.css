@@ -82,7 +82,7 @@ body{
     transition: transform 0.3s, box-shadow 0.3s;
 }
 .name{
-    color: #000;
+    color: #ffffff;
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
