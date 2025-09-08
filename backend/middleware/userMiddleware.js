@@ -5,8 +5,10 @@ require('dotenv').config();
 function userMiddleware (req,res,next) { 
     const token = req.headers.token;
     if(!token){
+        console.log("No token provided in request headers", req.headers);   
+        console.log("Token received:", token);
         return res.status(401).json({
-            Message : "Yo must login first"
+            Message : "You must login first"
         })
     }
     try{
@@ -14,7 +16,7 @@ function userMiddleware (req,res,next) {
         console.log("Decoded token:", decoded);
         if(decoded){
             req.userId = decoded.userId;
-            console.log("User ID from token:", req.headers.userId); 
+            console.log("User ID from token:", decoded.userId); 
             next();
         }else{
         res.status(403).json({

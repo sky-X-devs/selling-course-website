@@ -111,16 +111,18 @@ const getUserDetails = ()=>{
     }
     function enroll(courseId){
         const token = localStorage.getItem("token");
+        console.log("token in enroll function :",token);
         if(!token){
             alert('you must login first');
             window.location.href = 'http://localhost:5500/frontend/page/login';
             return;
         }
-        fetch('http://localhost:3000/user/purchase/:'+courseId,{
+
+        fetch(`http://localhost:3000/course/purchase/${courseId}`,{
             method : "POST",
             headers :{
-                token : token,
-                contentType:"application/json"
+                token:token,
+                "Content-Type": "application/json"
             }
         }).then(res => res.json())
         .then(data =>{

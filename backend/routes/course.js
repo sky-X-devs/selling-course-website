@@ -6,15 +6,17 @@ const { courseModel } = require('../db/courseModel');
 const courseRouter = Router();
 
 const purchaseZod = z.object({
-    creatorId : z.string(),
+    creatorId : z.string()
 });
 
 courseRouter.post('/purchase/:courseId',userMiddleware, async (req, res) => {
     const { courseId } = req.params; 
-    const userId  = req.id; 
+    const userId  = req.userId; 
     // const { creatorId } = req.body;
-    
+    console.log("courseId:", typeof(courseId ) );
+    console.log("purchase request body hit");
     const result = purchaseZod.safeParse(req.body);
+    console.log("Zod validation result:", result);
     if(!result.success) {
         return res.status(400).json({
             error : result.error.errors
