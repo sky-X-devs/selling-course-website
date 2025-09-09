@@ -5,24 +5,24 @@ const { purchaseModel } = require('../db/purchaseModel');
 const { courseModel } = require('../db/courseModel');
 const courseRouter = Router();
 
-const purchaseZod = z.object({
-    creatorId : z.string()
-});
+// const purchaseZod = z.object({
+//     creatorId : z.string()
+// });
 
 courseRouter.post('/purchase/:courseId',userMiddleware, async (req, res) => {
     const { courseId } = req.params; 
     const userId  = req.userId; 
     // const { creatorId } = req.body;
-    console.log("courseId:", typeof(courseId ) );
+    // console.log("courseId:", typeof(courseId ) );
     console.log("purchase request body hit");
-    const result = purchaseZod.safeParse(req.body);
-    console.log("Zod validation result:", result);
-    if(!result.success) {
-        return res.status(400).json({
-            error : result.error.errors
-        });
-    }
-    const { creatorId } = result.data;
+    // const result = purchaseZod.safeParse(req.body);
+    // console.log("Zod validation result:", result);
+    // if(!result.success) {
+    //     return res.status(400).json({
+    //         error : result.error.errors
+    //     });
+    // }
+    // const { creatorId } = result.data;
 
     try {
         const course = await courseModel.findById(courseId);
@@ -37,14 +37,13 @@ courseRouter.post('/purchase/:courseId',userMiddleware, async (req, res) => {
         }
         const purchaseCourse = await purchaseModel.create({
             courseId,
-            userId,
-            creatorId
+            userId
         })
         return res.status(200).json({
             Message : "Purchase successfully"
         })
     }catch(error){
-        console.log(error);
+        console.error("Error while purchasing:", error);
         return res.status(400).json({
             error : "Error while purchasing "
         })

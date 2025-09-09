@@ -1,7 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
-
+    
     if (!token) {
         alert("You must login first! this page is protected and this comes from home.js file");
         window.location.href = "http://localhost:5500/frontend/page/login.html";

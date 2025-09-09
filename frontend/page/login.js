@@ -28,7 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("Response from server:",data)
                 if(data.Message.trim() === "Login successful"){     
                     localStorage.setItem("token",data.token);
-                    window.location.href = "http://localhost:5500/frontend/page/home.html";
+                    requestAnimationFrame(() => {
+            window.location.href = "home.html";
+        });
+
                 }
                 else{
                     alert("login failed:"+data.Message);
