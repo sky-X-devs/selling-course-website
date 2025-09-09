@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const logoutButton = document.getElementById("log-out");
-    logoutButton.addEventListener("click",()=>{
+    logoutButton.addEventListener("click",(event)=>{
         event.preventDefault();
         logout();
     });
@@ -82,7 +82,7 @@ const getCourses = () => {
 
 function logout() {
     localStorage.removeItem("token");
-    window.location.href = "http://localhost:5500/frontend/page/login.html";
+    window.location.href = "http://localhost:5500/frontend/";
 }
 
 const getUserDetails = ()=>{
@@ -107,6 +107,8 @@ const getUserDetails = ()=>{
             document.getElementById("profile").innerText = username.charAt(0).toUpperCase();
             document.getElementsByClassName('name')[0].innerText = username;
             console.log("User data:",data);
+
+            
         })
     }
     function enroll(courseId){

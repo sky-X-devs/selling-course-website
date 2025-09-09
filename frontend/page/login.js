@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const registerButton = document.getElementsByClassName('register-button')[0];
     console.log("Register button found:", registerButton);
+    
     if (registerButton) {
         registerButton.addEventListener('click', (event) => {
             event.preventDefault(); 

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             fetch(url,{
                 method:"post",
                 body:JSON.stringify({firstName:username,
-                    lastName:"",
+                    lastName:"jpj",
                     email:email,
                     password:password}),
                 headers:{
@@ -30,10 +30,11 @@ document.addEventListener("DOMContentLoaded",()=>{
             .then(Response=>Response.json())
             .then(data=>{console.log("Response from server:",data)})
             .catch(err=>{console.error("errror form server ",err)})
+
+            window.location.href="http://127.0.0.1:5500/frontend";
         })
         usernameInput.value= "";
         emailInput.value = "";
         passwordInput.value = "";
-        window.location.href="http://127.0.0.1:5500/frontend";
     }
 })
