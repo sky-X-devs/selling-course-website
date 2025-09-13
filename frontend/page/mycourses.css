@@ -1,0 +1,140 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: #007BFF;
+  text-align: center;
+}
+
+.navbar {
+  background-color: #333;
+  width: 100%;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #f9f9f9;
+  align-content: center;
+}
+
+.navbar-container {
+  width: 100%;
+  padding: 0.3rem 8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
+  position: relative;
+  background-color: #ff0000;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-align: center;
+}
+
+.profile-menu {
+  position: absolute;
+  top: 60px;
+  right: 8rem;
+  background: #fff;
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 150px;
+  display: none;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  z-index: 100;
+}
+
+.profile-menu a {
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  color: #333;
+  display: block;
+  transition: background 0.2s;
+  font-size: 0.9rem;
+}
+.profile-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+.profile.active + .profile-menu {
+  display: flex;
+}
+
+/* Page layout */
+.mycourses-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.mycourses-container h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.mycourses-container p {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+/* Course cards grid */
+.mycourse-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.mycourse-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  
+  /* Square look */
+  aspect-ratio: 1 / 1;
+}
+
+.mycourse-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.mycourse-card h3 {
+  margin-bottom: 0.5rem;
+  color: #007BFF;
+}
+
+.mycourse-card p {
+  color: #666;
+}
+
+/* Responsive: on small screens make cards rectangular */
+@media (max-width: 600px) {
+  .mycourse-card {
+    aspect-ratio: auto;
+    height: 160px; /* rectangle on phone */
+  }
+
+}

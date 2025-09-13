@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+   
     const logoutButton = document.getElementById("log-out");
     logoutButton.addEventListener("click",(event)=>{
         event.preventDefault();
@@ -134,4 +135,19 @@ const getUserDetails = ()=>{
             }   
         })
         .catch(err => console.log("Error during enrollment:",err));
+    } 
+    
+    const getmyCourse = ()=>{
+        const myCourseButton = document.getElementById('my-course')
+
+        const token = localStorage.getItem("token");
+
+        fetch("http://localhost:3000/user/purchases",{
+            method:"GET",
+            headers:{
+                token:token,
+                "Content-Type": "application/json"
+            }
+        })
+
     }
