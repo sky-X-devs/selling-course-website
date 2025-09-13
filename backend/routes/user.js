@@ -95,6 +95,7 @@ userRouter.post('/signin', async function (req, res) {
 
 userRouter.get('/purchases', userMiddleware, async (req, res ) => {
     const userId = req.userId;
+    console.log("purchase endpoint hit");
     try { 
         const purchaseCo = await purchaseModel.find({
             userId

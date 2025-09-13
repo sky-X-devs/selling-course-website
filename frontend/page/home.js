@@ -34,12 +34,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-   
+    const myCourseButton = document.getElementById("my-course");
+    console.log("CourseButton is "+myCourseButton);
+    myCourseButton.addEventListener("click",()=>{
+        window.location.href="http://127.0.0.1:5500/frontend/page/mycourse.html"
+    });
+    
     const logoutButton = document.getElementById("log-out");
     logoutButton.addEventListener("click",(event)=>{
         event.preventDefault();
         logout();
     });
+
 });
 
 const getCourses = () => {
@@ -111,8 +117,8 @@ const getUserDetails = ()=>{
 
             
         })
-    }
-    function enroll(courseId){
+}
+function enroll(courseId){
         const token = localStorage.getItem("token");
         console.log("token in enroll function :",token);
         if(!token){
@@ -135,9 +141,9 @@ const getUserDetails = ()=>{
             }   
         })
         .catch(err => console.log("Error during enrollment:",err));
-    } 
+} 
     
-    const getmyCourse = ()=>{
+const getmyCourse = ()=>{
         const myCourseButton = document.getElementById('my-course')
 
         const token = localStorage.getItem("token");
@@ -150,4 +156,4 @@ const getUserDetails = ()=>{
             }
         })
 
-    }
+}
